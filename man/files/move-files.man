@@ -1,7 +1,7 @@
 move-files - move files in bulk
 
 Usage:
-  move-files <source> <destination>
+  move-files [--dry-run] <source> <destination>
   move-files --undo
 
-Preview moves and allow undo via log.
+Preview moves and allow undo via log. Use --dry-run to only preview actions.

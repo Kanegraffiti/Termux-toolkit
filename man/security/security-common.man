@@ -1,0 +1,3 @@
+security-common.sh - security module helpers
+
+Provides logging utilities for security scripts.

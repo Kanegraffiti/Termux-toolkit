@@ -1,0 +1,6 @@
+about-toolkit - display toolkit info
+
+Usage:
+  about-toolkit
+
+Shows version, tool counts and install date.

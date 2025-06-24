@@ -1,0 +1,6 @@
+toolkit-diagnose - check toolkit installation
+
+Usage:
+  toolkit-diagnose
+
+Runs several checks and suggests fixes for common issues.

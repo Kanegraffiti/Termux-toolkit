@@ -1,6 +1,6 @@
 batch-rename - rename files in bulk
 
 Usage:
-  batch-rename [directory]
+  batch-rename [--dry-run] [directory]
 
-Interactively add prefix/suffix or lowercase to filenames.
+Interactively add prefix/suffix or lowercase to filenames. Use --dry-run to preview changes without renaming.

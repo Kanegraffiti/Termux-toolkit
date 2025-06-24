@@ -10,10 +10,12 @@ mkdir -p "$BIN" "$MAN"
 
 # install core library and default config
 cp toolkit-core.sh "$TARGET/"
+cp VERSION "$TARGET/" 2>/dev/null || true
+cp tools/pkg-batches.conf "$TARGET/" 2>/dev/null || true
 if [[ ! -f "$TARGET/config" ]]; then
   cat <<'EOF' > "$TARGET/config"
 USE_EMOJIS=true
-AI_API_ENDPOINT="http://192.168.1.100:8000"
+AI_API_ENDPOINT="http://localhost:11434"
 DEFAULT_BACKUP_DIR="$HOME/backups"
 EOF
 fi

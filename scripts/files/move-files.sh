@@ -11,9 +11,15 @@ if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
   exit 0
 fi
 
+dry_run=false
+if [[ ${1:-} == "--dry-run" ]]; then
+  dry_run=true
+  shift
+fi
+
 usage() {
   echo "move-files - move files with preview";
-  echo "Usage: move-files <source> <destination> | move-files --undo";
+  echo "Usage: move-files [--dry-run] <source> <destination> | move-files --undo";
 }
 
 if [[ ${1:-} == "--undo" ]]; then
@@ -61,9 +67,12 @@ if [[ $confirm != [yY] ]]; then
   echo "Aborted." && exit 0
 fi
 
-while IFS='|' read -r s d; do
-  mv -n "$s" "$d" && echo "✅ $(basename "$s") moved"
-done < "$LOG_FILE"
-
-echo "🎉 Move complete. Use 'move-files --undo' to reverse."
+if $dry_run; then
+  log_info "Dry run enabled. No files moved."
+else
+  while IFS='|' read -r s d; do
+    mv -n "$s" "$d" && log_info "$(basename "$s") moved"
+  done < "$LOG_FILE"
+  log_info "Move complete. Use 'move-files --undo' to reverse."
+fi
 
