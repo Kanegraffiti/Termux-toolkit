@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
-source "$HOME/.termux-toolkit/toolkit-core.sh"
+SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+source "${SCRIPT_DIR}/../system/toolkit-core.sh"
 
 # gpull - Git pull with stash/apply safety
 usage() {

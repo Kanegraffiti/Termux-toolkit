@@ -1,42 +1,39 @@
 #!/data/data/com.termux/files/usr/bin/bash
+# toolkit-core.sh – shared helpers for every Termux-Toolkit script
 set -euo pipefail
 
-# toolkit-core - shared utility functions
-load_config() {
-  USE_EMOJIS=true
-  DEFAULT_BACKUP_DIR="$HOME/backups"
-  AI_API_ENDPOINT="http://localhost:11434"
-  [[ -f $HOME/.termux-toolkit/config ]] && source "$HOME/.termux-toolkit/config"
-}
+CFG_FILE="$HOME/.termux-toolkit/config"
+[[ -f "$CFG_FILE" ]] && source "$CFG_FILE"
+: "${USE_EMOJIS:=true}"
 
-log_info() { echo "ℹ️  $*"; }
-log_warn() { echo "⚠️  $*" >&2; }
-log_error() { echo "❌ $*" >&2; }
-
-ask_confirm() {
-  local prompt="$1"
-  read -rp "$prompt (y/N) " ans
-  [[ $ans == [yY] ]]
-}
+_em() { [[ "$USE_EMOJIS" == true ]] && printf '%b ' "$1"; }
+COLOR_GREEN=$'\e[32m'; COLOR_RED=$'\e[31m'; COLOR_RESET=$'\e[0m'
+log_info()    { _em "ℹ️" ;  echo -e "${COLOR_GREEN}$*${COLOR_RESET}"; }
+log_warn()    { _em "⚠️" ;  echo -e "${COLOR_RED}$*${COLOR_RESET}"; }
+ask_confirm() { read -rp "$1 (y/N): " ans; [[ "$ans" == y ]]; }
 
 require_tool() {
-  local cmd="$1"; local pkg="${2:-$1}"
-  command -v "$cmd" >/dev/null 2>&1 && return 0
-  pkg install -y "$pkg"
-}
-
-check_storage() {
-  if [[ ! -d $HOME/storage/shared ]]; then
-    if command -v termux-setup-storage >/dev/null 2>&1; then
-      termux-setup-storage
-    fi
+  command -v "$1" >/dev/null 2>&1 && return 0
+  log_warn "'$1' not found."
+  ask_confirm "Install package containing '$1' now?" || return 1
+  if command -v pkg >/dev/null 2>&1; then
+    pkg install -y "$1" || log_warn "Failed to install $1"
+  else
+    log_warn "pkg unavailable – install $1 manually."
+    return 1
   fi
 }
 
-check_storage_access() { check_storage; }
-
-check_network() {
-  ping -c1 -W1 1.1.1.1 >/dev/null 2>&1
+check_storage() {
+  termux-setup-storage -h >/dev/null 2>&1 || true
+  [[ -d "$HOME/storage" ]] || {
+    log_warn "Shared storage not bound—run 'termux-setup-storage'."
+  }
 }
 
-load_config
+check_network() {
+  if ! ping -c1 -W2 1.1.1.1 >/dev/null 2>&1; then
+    log_warn "No internet connectivity."
+    return 1
+  fi
+}

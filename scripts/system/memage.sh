@@ -1,0 +1,34 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# memage.sh – show disk usage for a file/folder by *name*, anywhere
+# @tool memage
+# @desc Search $HOME + shared storage for a name and report size
+# @category system
+set -euo pipefail
+SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+source "${SCRIPT_DIR}/toolkit-core.sh"
+
+# ----- prerequisites -----
+require_tool du   || exit 1
+require_tool fd   || require_tool fdfind || exit 1   # fd is faster than find
+
+# ----- input name -----
+[[ $# -ge 1 ]] || { echo "Usage: memage <name>"; exit 1; }
+SEARCH="$1"
+
+log_info "🔍 Searching for '$SEARCH'…"
+# search $HOME + storage shared
+check_storage
+MATCHES=$(fd -H -a "$SEARCH" "$HOME" "$HOME/storage/shared" 2>/dev/null || true)
+
+[[ -z "$MATCHES" ]] && { log_warn "No match found."; exit 0; }
+
+# show result list
+echo "$MATCHES" | nl -w2 -s': '
+[[ $(echo "$MATCHES" | wc -l) -gt 1 ]] && \
+  read -rp "Pick number to inspect [1]: " sel && sel=${sel:-1}
+
+TARGET=$(echo "$MATCHES" | sed -n "${sel}p")
+[[ -z "$TARGET" ]] && { log_warn "Selection invalid."; exit 1; }
+
+log_info "📂 Measuring size of: $TARGET"
+du -sh "$TARGET"
