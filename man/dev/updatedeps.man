@@ -1,0 +1,6 @@
+updatedeps - update project dependencies
+
+Usage:
+  updatedeps
+
+Updates npm and Python packages if their config files exist.

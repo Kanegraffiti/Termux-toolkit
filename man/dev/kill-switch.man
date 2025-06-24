@@ -1,0 +1,6 @@
+kill-switch - terminate processes safely
+
+Usage:
+  kill-switch <keyword>
+
+Lists matching processes and prompts before killing them.
