@@ -11,7 +11,7 @@ mkdir -p "$BIN" "$MAN"
 cp scripts/*/*.sh "$BIN" 2>/dev/null || true
 cp scripts/system/mini-man "$BIN"
 
-cp man/* "$MAN" 2>/dev/null || true
+cp -r man/* "$MAN" 2>/dev/null || true
 
 chmod +x "$BIN"/*
 

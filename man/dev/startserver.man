@@ -1,0 +1,6 @@
+startserver - launch development server
+
+Usage:
+  startserver [path]
+
+Detects project type and runs the appropriate dev server.

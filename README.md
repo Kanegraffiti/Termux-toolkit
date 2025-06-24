@@ -6,6 +6,7 @@ Termux CLI Toolkit is a collection of handy command line tools for Android devel
 - Safe git push and pull helpers
 - Quick alias setup for your own scripts
 - Simple manual pages accessible with `mini-man`
+- New developer utilities in `mini-man dev`
 
 ![screenshot](docs/screenshot.png)
 

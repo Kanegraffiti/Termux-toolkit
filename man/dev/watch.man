@@ -1,0 +1,6 @@
+watch - watch files for modifications
+
+Usage:
+  watch [path]
+
+Requires inotifywait. Prints a message whenever files change.
