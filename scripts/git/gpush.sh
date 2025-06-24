@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
+source "$HOME/.termux-toolkit/toolkit-core.sh"
 
 # gpush - Safe git add/commit/push with confirmations
 usage() {
@@ -28,7 +29,7 @@ if [[ $confirm != "y" && $confirm != "Y" ]]; then
 fi
 
 # network check
-if ! ping -c1 -W1 8.8.8.8 >/dev/null 2>&1; then
+if ! check_network; then
   echo "❌ Network unreachable" >&2
   exit 1
 fi

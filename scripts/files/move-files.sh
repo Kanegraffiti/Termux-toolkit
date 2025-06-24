@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
+source "$HOME/.termux-toolkit/toolkit-core.sh"
 
 LOG_DIR="$HOME/.termux-toolkit/logs"
 LOG_FILE="$LOG_DIR/move-files.log"
@@ -44,6 +45,8 @@ fi
 mkdir -p "$dest"
 
 > "$LOG_FILE"
+RECOVERY_FILE="$HOME/.termux-toolkit/logs/recovery.log"
+trap 'echo "Move interrupted. Run: move-files --undo" >> "$RECOVERY_FILE"' ERR
 
 echo "🔍 Preview:" 
 for f in "$src"/*; do

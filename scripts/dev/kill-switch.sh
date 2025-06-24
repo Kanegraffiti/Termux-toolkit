@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
+source "$HOME/.termux-toolkit/toolkit-core.sh"
 
 if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
   mini-man dev kill-switch

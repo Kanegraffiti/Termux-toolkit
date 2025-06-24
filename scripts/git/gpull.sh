@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
+source "$HOME/.termux-toolkit/toolkit-core.sh"
 
 # gpull - Git pull with stash/apply safety
 usage() {
@@ -18,7 +19,7 @@ if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 # network check
-if ! ping -c1 -W1 8.8.8.8 >/dev/null 2>&1; then
+if ! check_network; then
   echo "❌ Network unreachable" >&2
   exit 1
 fi
