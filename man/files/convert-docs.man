@@ -1,0 +1,6 @@
+convert-docs - convert document formats
+
+Usage:
+  convert-docs <source> <target>
+
+Supports md↔txt, md→pdf and docx→pdf when tools are installed.

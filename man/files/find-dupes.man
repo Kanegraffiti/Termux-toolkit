@@ -1,0 +1,6 @@
+find-dupes - find duplicate files
+
+Usage:
+  find-dupes [directory] [--name|--checksum]
+
+Detect duplicates by filename or checksum.

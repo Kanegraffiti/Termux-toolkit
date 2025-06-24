@@ -1,0 +1,6 @@
+batch-rename - rename files in bulk
+
+Usage:
+  batch-rename [directory]
+
+Interactively add prefix/suffix or lowercase to filenames.
