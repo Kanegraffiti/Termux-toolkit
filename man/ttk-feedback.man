@@ -1,0 +1,6 @@
+ttk-feedback - send feedback for Termux Toolkit
+
+Usage:
+  ttk-feedback [message]
+
+Saves the feedback to ~/.termux-toolkit/logs/feedback.log and attempts to POST it to the configured API endpoint.

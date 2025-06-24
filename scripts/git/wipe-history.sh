@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
+source "$HOME/.termux-toolkit/toolkit-core.sh"
 
 # wipe-history - rewrite repository history to a single commit
 usage() {
@@ -16,6 +17,10 @@ if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "❌ Not inside a git repository" >&2
   exit 1
 fi
+
+RECOVERY_FILE="$HOME/.termux-toolkit/logs/recovery.log"
+orig_head=$(git rev-parse HEAD)
+trap 'echo "History wipe aborted. Restore with: git reset --hard $orig_head" >> "$RECOVERY_FILE"' ERR
 
 read -rp "This will rewrite history and force push. Continue? (y/N) " confirm
 if [[ $confirm != "y" && $confirm != "Y" ]]; then

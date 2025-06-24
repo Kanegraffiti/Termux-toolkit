@@ -1,0 +1,3 @@
+# Manual Steps
+- Review logs in `~/.termux-toolkit/logs/feedback.log` and summarize feedback on GitHub Discussions.
+- Share recovery instructions from `~/.termux-toolkit/logs/recovery.log` when issues occur.

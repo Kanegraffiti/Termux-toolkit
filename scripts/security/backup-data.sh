@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
+source "$HOME/.termux-toolkit/toolkit-core.sh"
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 source "${SCRIPT_DIR}/../security/security-common.sh"
 
@@ -18,11 +19,14 @@ require_tool gzip gzip
 check_storage_access
 
 read -rp "Source paths (space separated): " srcs
-read -rp "Destination directory: " dest
+read -rp "Destination directory [$DEFAULT_BACKUP_DIR]: " dest
+dest=${dest:-$DEFAULT_BACKUP_DIR}
 mkdir -p "$dest"
 
 ts=$(date +%Y%m%d_%H%M%S)
 archive="$dest/backup_$ts.tar.gz"
+RECOVERY_FILE="$HOME/.termux-toolkit/logs/recovery.log"
+trap 'echo "Backup interrupted. Partial file at $archive" >> "$RECOVERY_FILE"' ERR
 
 if $dry_run; then
   echo "Would archive $srcs to $archive"
