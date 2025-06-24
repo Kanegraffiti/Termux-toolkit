@@ -1,0 +1,6 @@
+gpull - safely pull with automatic stash
+
+Usage:
+  gpull
+
+Stashes local changes if present, pulls latest from origin and restores stash.

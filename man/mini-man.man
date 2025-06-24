@@ -1,0 +1,6 @@
+mini-man - view toolkit manuals
+
+Usage:
+  mini-man [tool]
+
+Without arguments lists available manuals. Provide tool name to view its manual.

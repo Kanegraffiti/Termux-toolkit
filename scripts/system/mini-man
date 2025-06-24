@@ -1,0 +1,33 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+# mini-man - simple manual viewer
+usage() {
+  echo "mini-man - show toolkit manuals"
+  echo "Usage: mini-man [tool]"
+}
+
+MAN_DIR="$HOME/.termux-toolkit/man"
+
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+if [[ $# -eq 0 ]]; then
+  echo "Available manuals:"
+  find "$MAN_DIR" -maxdepth 1 -name "*.man" -printf '%f\n' | sed 's/\.man$//' | xargs -n1 -I{} echo " - {}"
+  exit 0
+fi
+
+FILE="$MAN_DIR/$1.man"
+if [[ ! -f $FILE ]]; then
+  FILE="$MAN_DIR/$1.txt"
+fi
+
+if [[ ! -f $FILE ]]; then
+  echo "❌ Manual for $1 not found" >&2
+  exit 1
+fi
+
+cat "$FILE"
