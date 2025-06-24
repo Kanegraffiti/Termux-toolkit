@@ -1,0 +1,6 @@
+wipe-history - rewrite git history with force push
+
+Usage:
+  wipe-history
+
+Creates a single new commit from current tree and force pushes it.

@@ -1,0 +1,6 @@
+gpush - safely add, commit, and push changes
+
+Usage:
+  gpush [-m message]
+
+Adds all changes, commits with the given message and pushes to origin.

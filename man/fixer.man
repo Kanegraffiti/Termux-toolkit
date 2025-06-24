@@ -1,0 +1,6 @@
+fixer - adds alias and makes script executable
+
+Usage:
+  fixer <script> <alias>
+
+Marks script executable and adds alias to shell rc file.
