@@ -6,10 +6,10 @@ TARGET="$HOME/.termux-toolkit"
 BIN="$TARGET/bin"
 MAN="$TARGET/man"
 
-mkdir -p "$BIN" "$MAN"
+mkdir -p "$BIN" "$MAN" "$TARGET/system"
 
 # install core library and default config
-cp toolkit-core.sh "$TARGET/"
+cp scripts/system/toolkit-core.sh "$TARGET/system/"
 cp VERSION "$TARGET/" 2>/dev/null || true
 cp tools/pkg-batches.conf "$TARGET/" 2>/dev/null || true
 if [[ ! -f "$TARGET/config" ]]; then

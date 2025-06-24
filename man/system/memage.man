@@ -1,0 +1,6 @@
+memage - measure disk usage by name
+
+Usage:
+  memage <name>
+
+Searches your HOME and shared storage for files or folders matching the given name and shows their size.
