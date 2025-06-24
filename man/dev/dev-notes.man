@@ -1,0 +1,6 @@
+dev-notes - open a project notes file
+
+Usage:
+  dev-notes [file]
+
+Opens the specified markdown file in \$EDITOR for quick notes.

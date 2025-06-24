@@ -1,0 +1,4 @@
+zip-migrate - zip folder into backups
+
+Usage:
+  zip-migrate <folder>

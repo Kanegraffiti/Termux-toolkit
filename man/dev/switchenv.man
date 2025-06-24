@@ -1,0 +1,6 @@
+switchenv - swap .env presets
+
+Usage:
+  switchenv <file|list>
+
+Copies the chosen preset to .env in the current directory.

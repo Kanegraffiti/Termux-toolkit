@@ -1,0 +1,6 @@
+newproject - scaffold a new project directory
+
+Usage:
+  newproject [name] [--node] [--python]
+
+Creates a folder, initializes git and README. Optional Node or Python setup.

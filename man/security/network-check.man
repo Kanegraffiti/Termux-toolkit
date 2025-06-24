@@ -1,0 +1,4 @@
+network-check - verify internet connectivity
+
+Usage:
+  network-check

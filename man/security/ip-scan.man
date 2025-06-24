@@ -1,0 +1,4 @@
+ip-scan - scan local network with nmap
+
+Usage:
+  ip-scan [subnet]

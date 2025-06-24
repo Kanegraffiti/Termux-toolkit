@@ -1,0 +1,6 @@
+scaffold-maker - create project scaffold
+
+Usage:
+  scaffold-maker <name> [--lang node|python|bash]
+
+Generates README, .gitignore, folders and optional git init.

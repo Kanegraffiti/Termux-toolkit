@@ -1,0 +1,6 @@
+setupdev - install common development packages
+
+Usage:
+  setupdev
+
+Installs git, curl, nodejs, python, sqlite and more for Termux.
