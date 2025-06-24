@@ -1,0 +1,7 @@
+pkg-toolkit - batch package installer
+
+Usage:
+  pkg-toolkit.sh [--list|--status]
+
+Interactively install or uninstall grouped packages for Termux.
+

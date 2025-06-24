@@ -1,0 +1,6 @@
+smart-clean - clean clutter files
+
+Usage:
+  smart-clean [directory]
+
+Deletes temporary files like .DS_Store or *.bak after confirmation.
