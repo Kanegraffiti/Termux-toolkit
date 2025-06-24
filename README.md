@@ -1,6 +1,7 @@
 # Termux CLI Toolkit
 
 Termux CLI Toolkit is a collection of handy command line tools for Android developers using [Termux](https://termux.dev). It bundles common git helpers and system utilities so you can work faster on the go.
+The project is currently in **v1.0-alpha**.
 
 ## Features
 - Safe git push and pull helpers
@@ -9,7 +10,12 @@ Termux CLI Toolkit is a collection of handy command line tools for Android devel
 - New developer utilities in `mini-man dev`
 - Security tools for backups and malware scans in `mini-man security`
 
-![screenshot](docs/screenshot.png)
+![demo](docs/screenshot.png)
+
+### Categories
+- 🛠 **files**: `move-files`, `batch-rename`
+- 🔒 **security**: `backup-data`, `antivirus-scan`
+- 🧑‍💻 **dev**: `newproject`
 
 See the [blog post](https://example.com) for details.
 
@@ -29,4 +35,4 @@ Run `mini-man` to list all tools. Each command has `-h` or `--help`.
 Run `mini-man security` to view commands such as malware scans, backups and network checks.
 
 ## Contributing
-Pull requests welcome! This project is released under the MIT License.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Pull requests are welcome!

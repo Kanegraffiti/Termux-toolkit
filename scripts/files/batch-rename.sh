@@ -7,9 +7,15 @@ if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
   exit 0
 fi
 
+dry_run=false
+if [[ ${1:-} == "--dry-run" ]]; then
+  dry_run=true
+  shift
+fi
+
 usage() {
   echo "batch-rename - rename files in bulk";
-  echo "Usage: batch-rename [directory]";
+  echo "Usage: batch-rename [--dry-run] [directory]";
 }
 
 dir="${1:-.}"
@@ -48,17 +54,20 @@ if [[ $confirm != [yY] ]]; then
   echo "Aborted." && exit 0
 fi
 
-for f in "$dir"/*; do
-  [[ -f $f ]] || continue
-  base=$(basename "$f")
-  new="$prefix${base}$suffix"
-  if [[ $lower == [yY] ]]; then
-    new=$(echo "$new" | tr '[:upper:]' '[:lower:]')
-  fi
-  [[ $base == $new ]] && continue
-  mv -n "$f" "$dir/$new"
-  echo "✅ $base -> $new"
-done
-
-echo "🎉 Rename complete"
+if $dry_run; then
+  log_info "Dry run enabled. No files renamed."
+else
+  for f in "$dir"/*; do
+    [[ -f $f ]] || continue
+    base=$(basename "$f")
+    new="$prefix${base}$suffix"
+    if [[ $lower == [yY] ]]; then
+      new=$(echo "$new" | tr '[:upper:]' '[:lower:]')
+    fi
+    [[ $base == $new ]] && continue
+    mv -n "$f" "$dir/$new"
+    log_info "$base -> $new"
+  done
+  log_info "Rename complete"
+fi
 

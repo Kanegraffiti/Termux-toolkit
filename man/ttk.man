@@ -1,0 +1,4 @@
+ttk - unified CLI for the toolkit
+
+Usage:
+  ttk <install|man|status|scan>

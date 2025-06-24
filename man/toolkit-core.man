@@ -1,0 +1,3 @@
+toolkit-core.sh - shared functions
+
+Internal library used by other scripts. Not intended for direct use.

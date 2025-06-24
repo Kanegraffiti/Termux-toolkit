@@ -1,6 +1,6 @@
 copy-files - copy files safely
 
 Usage:
-  copy-files <source> <destination>
+  copy-files [--dry-run] <source> <destination>
 
-Shows a preview and confirms before copying.
+Shows a preview and confirms before copying. Use --dry-run to preview only.

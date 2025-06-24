@@ -7,9 +7,15 @@ if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
   exit 0
 fi
 
+dry_run=false
+if [[ ${1:-} == "--dry-run" ]]; then
+  dry_run=true
+  shift
+fi
+
 usage() {
   echo "copy-files - copy files safely";
-  echo "Usage: copy-files <source> <destination>";
+  echo "Usage: copy-files [--dry-run] <source> <destination>";
 }
 
 if [[ $# -ne 2 ]]; then
@@ -37,10 +43,13 @@ if [[ $confirm != [yY] ]]; then
   echo "Aborted." && exit 0
 fi
 
-for f in "$src"/*; do
-  [[ -f $f ]] || continue
-  cp -i "$f" "$dest/" && echo "✅ $(basename "$f") copied"
-done
-
-echo "🎉 Copy complete"
+if $dry_run; then
+  log_info "Dry run enabled. No files copied."
+else
+  for f in "$src"/*; do
+    [[ -f $f ]] || continue
+    cp -i "$f" "$dest/" && log_info "$(basename "$f") copied"
+  done
+  log_info "Copy complete"
+fi
 
