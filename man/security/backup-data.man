@@ -1,0 +1,4 @@
+backup-data - interactive backup creator
+
+Usage:
+  backup-data [--dry-run]

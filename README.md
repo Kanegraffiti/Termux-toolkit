@@ -7,6 +7,7 @@ Termux CLI Toolkit is a collection of handy command line tools for Android devel
 - Quick alias setup for your own scripts
 - Simple manual pages accessible with `mini-man`
 - New developer utilities in `mini-man dev`
+- Security tools for backups and malware scans in `mini-man security`
 
 ![screenshot](docs/screenshot.png)
 
@@ -23,6 +24,9 @@ Restart your shell or `source ~/.bashrc`.
 
 ## Usage
 Run `mini-man` to list all tools. Each command has `-h` or `--help`.
+
+### Security Module
+Run `mini-man security` to view commands such as malware scans, backups and network checks.
 
 ## Contributing
 Pull requests welcome! This project is released under the MIT License.

@@ -1,0 +1,4 @@
+scan-by-name - search for name then scan
+
+Usage:
+  scan-by-name <name> [--hash] [--extra DIR]

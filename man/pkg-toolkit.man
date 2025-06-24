@@ -1,0 +1,4 @@
+pkg-toolkit - install toolkit package batches
+
+Usage:
+  pkg-toolkit <category> <install|uninstall>

@@ -1,0 +1,4 @@
+antivirus-scan - run clamav scan on paths
+
+Usage:
+  antivirus-scan [path ...]
