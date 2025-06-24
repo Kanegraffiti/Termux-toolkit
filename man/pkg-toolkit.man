@@ -2,3 +2,11 @@ pkg-toolkit - install toolkit package batches
 
 Usage:
   pkg-toolkit <category> <install|uninstall>
+
+pkg-toolkit - batch package installer
+
+Usage:
+  pkg-toolkit.sh [--list|--status]
+
+Interactively install or uninstall grouped packages for Termux.
+

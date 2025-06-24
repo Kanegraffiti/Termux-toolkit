@@ -1,0 +1,7 @@
+move-files - move files in bulk
+
+Usage:
+  move-files <source> <destination>
+  move-files --undo
+
+Preview moves and allow undo via log.

@@ -1,0 +1,6 @@
+copy-files - copy files safely
+
+Usage:
+  copy-files <source> <destination>
+
+Shows a preview and confirms before copying.

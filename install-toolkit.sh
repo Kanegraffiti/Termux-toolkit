@@ -9,6 +9,7 @@ MAN="$TARGET/man"
 mkdir -p "$BIN" "$MAN"
 
 cp scripts/*/*.sh "$BIN" 2>/dev/null || true
+cp tools/*.sh "$BIN" 2>/dev/null || true
 cp scripts/system/mini-man "$BIN"
 
 cp -r man/* "$MAN" 2>/dev/null || true
