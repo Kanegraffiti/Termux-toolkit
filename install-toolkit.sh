@@ -5,6 +5,7 @@ set -euo pipefail
 TARGET="$HOME/.termux-toolkit"
 BIN="$TARGET/bin"
 MAN="$TARGET/man"
+PREFIX_BIN="$PREFIX/bin"
 
 mkdir -p "$BIN" "$MAN" "$TARGET/system"
 
@@ -24,6 +25,9 @@ mkdir -p "$TARGET/plugins"
 cp scripts/*/*.sh "$BIN" 2>/dev/null || true
 cp tools/*.sh "$BIN" 2>/dev/null || true
 cp scripts/system/mini-man "$BIN"
+for f in "$BIN"/*; do
+  ln -sf "$f" "$PREFIX_BIN/$(basename "$f")"
+done
 
 cp -r man/* "$MAN" 2>/dev/null || true
 
@@ -51,6 +55,12 @@ for script in "$BIN"/*; do
     echo "alias $name=\"$script\"" >> "$SHELL_RC"
   fi
 done
+
+if ! grep -q "alias ttk=" "$SHELL_RC" 2>/dev/null; then
+  echo "alias ttk=\"$PREFIX_BIN/ttk.sh\"" >> "$SHELL_RC"
+  echo "alias ttk-man=\"ttk man\"" >> "$SHELL_RC"
+  echo "alias ttk-help=\"ttk help\"" >> "$SHELL_RC"
+fi
 
 # plugin aliases
 for plugin in "$TARGET/plugins"/*.sh; do

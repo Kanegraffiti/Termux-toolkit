@@ -1,0 +1,7 @@
+ttk-update - update Termux Toolkit
+
+Usage:
+  ttk-update
+
+Pulls the latest changes from the toolkit Git repository installed in
+~/.termux-toolkit.

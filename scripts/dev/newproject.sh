@@ -13,7 +13,7 @@ usage() {
   echo "Usage: newproject [name] [--node] [--python]"
 }
 
-project="."
+project=""
 node=false
 python=false
 
@@ -27,40 +27,52 @@ for arg in "$@"; do
   shift || true
 done
 
-if [[ $project != "." ]]; then
-  mkdir -p "$project"
-  cd "$project"
+if [[ -z "$project" ]]; then
+  read -rp "Enter project name: " project
 fi
 
-echo "🌱 Creating project in $(pwd)"
+[[ -z "$project" ]] && { log_error "No project name provided."; exit 1; }
+
+if [[ -e $project ]]; then
+  log_error "Folder '$project' already exists."; exit 1
+fi
+
+mkdir -p "$project" && cd "$project"
+log_info "🌱 Creating project in $(pwd)"
+
+require_tool git git || { log_error "Git required"; exit 1; }
 
 if [[ ! -f README.md ]]; then
   echo "# $(basename $(pwd))" > README.md
-  echo "✅ README created"
+  log_success "README created"
 fi
 
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  git init >/dev/null
-  echo "✅ Git repository initialized"
+  if git init -b main >/dev/null 2>&1; then
+    log_success "Git repository initialized on main"
+  else
+    git init >/dev/null && git checkout -b main >/dev/null
+    log_success "Git repository initialized"
+  fi
 fi
 
 if $node; then
   if command -v npm >/dev/null 2>&1; then
     if [[ ! -f package.json ]]; then
-      npm init -y >/dev/null && echo "✅ npm project initialized"
+      npm init -y >/dev/null && log_success "npm project initialized"
     fi
   else
-    echo "❌ npm not installed" >&2
+    log_warn "npm not installed"
   fi
 fi
 
 if $python; then
   if command -v python >/dev/null 2>&1; then
     [[ -f requirements.txt ]] || touch requirements.txt
-    echo "✅ Python requirements file ready"
+    log_success "Python requirements file ready"
   else
-    echo "❌ Python not installed" >&2
+    log_warn "Python not installed"
   fi
 fi
 
-echo "🎉 Project setup complete"
+log_success "Project setup complete"

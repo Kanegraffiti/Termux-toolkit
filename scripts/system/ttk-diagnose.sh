@@ -38,4 +38,13 @@ else
   log_info "Run: pkg install ${missing[*]}"
 fi
 
+pkg_count=$(pkg list-installed 2>/dev/null | wc -l)
+upt=$(uptime -p 2>/dev/null || true)
+home_usage=$(du -sh "$HOME" 2>/dev/null | awk '{print $1}')
+shared_usage="N/A"
+[[ -d $HOME/storage/shared ]] && shared_usage=$(du -sh "$HOME/storage/shared" 2>/dev/null | awk '{print $1}')
+
+log_info "Packages installed: $pkg_count"
+log_info "Uptime: $upt"
+log_info "Home usage: $home_usage, Shared: $shared_usage"
 log_info "Config:\nUSE_EMOJIS=$USE_EMOJIS\nDEFAULT_BACKUP_DIR=$DEFAULT_BACKUP_DIR\nAI_API_ENDPOINT=$AI_API_ENDPOINT"

@@ -18,7 +18,7 @@ fi
 
 if [[ $# -eq 0 ]]; then
   echo "Available manuals:"
-  find "$MAN_DIR" -maxdepth 1 -name "*.man" -printf '%f\n' | sed 's/\.man$//' | xargs -n1 -I{} echo " - {}"
+  find "$MAN_DIR" -maxdepth 1 -name "*.man" -printf '%f\n' | sed 's/\.man$//' | xargs -I{} echo " - {}"
   for dir in "$MAN_DIR"/*/; do
     [[ -d $dir ]] || continue
     catname=$(basename "$dir")
@@ -31,7 +31,7 @@ if [[ -d "$MAN_DIR/$1" ]]; then
   CATEGORY=$1
   if [[ $# -eq 1 ]]; then
     echo "Available $CATEGORY manuals:"
-    find "$MAN_DIR/$CATEGORY" -name "*.man" -printf '%f\n' | sed 's/\.man$//' | xargs -n1 -I{} echo " - {}"
+    find "$MAN_DIR/$CATEGORY" -name "*.man" -printf '%f\n' | sed 's/\.man$//' | xargs -I{} echo " - {}"
     exit 0
   fi
   FILE="$MAN_DIR/$CATEGORY/$2.man"

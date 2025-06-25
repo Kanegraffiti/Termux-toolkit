@@ -3,6 +3,8 @@ set -euo pipefail
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 source "${SCRIPT_DIR}/../system/toolkit-core.sh"
 
+require_tool pkg pkg || { log_error "pkg tool required"; exit 1; }
+
 CONF="$HOME/.termux-toolkit/pkg-batches.conf"
 [[ -f $CONF ]] || cp "$(dirname "$0")/../../tools/pkg-batches.conf" "$CONF"
 
@@ -35,10 +37,32 @@ status_batches() {
 install_batch() { pkg install -y ${batches[$1]} ; }
 uninstall_batch() { pkg uninstall -y ${batches[$1]} || true ; }
 
+choose_batch() {
+  local opts=("${!batches[@]}") sel
+  if command -v fzf >/dev/null 2>&1; then
+    sel=$(printf '%s\n' "${opts[@]}" | fzf)
+  else
+    PS3="Select batch: "
+    select sel in "${opts[@]}"; do break; done
+  fi
+  echo "$sel"
+}
+
 case ${1:-} in
   --list) list_batches ;;
   --status) status_batches ;;
-  --install) install_batch "$2" ;;
-  --uninstall) uninstall_batch "$2" ;;
-  *) echo "Usage: pkg-toolkit --list | --status | --install <batch> | --uninstall <batch>" >&2; exit 1 ;;
+  --install)
+    batch=${2:-$(choose_batch)}
+    [[ -z $batch ]] && exit 1
+    ask_confirm "Install batch '$batch'?" && install_batch "$batch"
+    ;;
+  --uninstall)
+    batch=${2:-$(choose_batch)}
+    [[ -z $batch ]] && exit 1
+    ask_confirm "Uninstall batch '$batch'?" && uninstall_batch "$batch"
+    ;;
+  *)
+    echo "Usage: pkg-toolkit --list | --status | --install [batch] | --uninstall [batch]" >&2
+    exit 1
+    ;;
 esac

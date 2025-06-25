@@ -1,0 +1,6 @@
+ttk-diagnose - system status and toolkit health check
+
+Usage:
+  ttk-diagnose
+
+Shows alias configuration, package availability, uptime and disk usage.

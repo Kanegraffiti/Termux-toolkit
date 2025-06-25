@@ -10,6 +10,8 @@ _em() { [[ "$USE_EMOJIS" == true ]] && printf '%b ' "$1"; }
 COLOR_GREEN=$'\e[32m'; COLOR_RED=$'\e[31m'; COLOR_RESET=$'\e[0m'
 log_info()    { _em "ℹ️" ;  echo -e "${COLOR_GREEN}$*${COLOR_RESET}"; }
 log_warn()    { _em "⚠️" ;  echo -e "${COLOR_RED}$*${COLOR_RESET}"; }
+log_success() { _em "✅" ;  echo -e "${COLOR_GREEN}$*${COLOR_RESET}"; }
+log_error()   { _em "❌" ;  echo -e "${COLOR_RED}$*${COLOR_RESET}"; }
 ask_confirm() { read -rp "$1 (y/N): " ans; [[ "$ans" == y ]]; }
 
 require_tool() {

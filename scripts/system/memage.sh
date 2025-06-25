@@ -9,7 +9,7 @@ source "${SCRIPT_DIR}/toolkit-core.sh"
 
 # ----- prerequisites -----
 require_tool du   || exit 1
-require_tool fd   || require_tool fdfind || exit 1   # fd is faster than find
+require_tool find find || exit 1
 
 # ----- input name -----
 [[ $# -ge 1 ]] || { echo "Usage: memage <name>"; exit 1; }
@@ -18,7 +18,7 @@ SEARCH="$1"
 log_info "🔍 Searching for '$SEARCH'…"
 # search $HOME + storage shared
 check_storage
-MATCHES=$(fd -H -a "$SEARCH" "$HOME" "$HOME/storage/shared" 2>/dev/null || true)
+MATCHES=$(find "$HOME" "$HOME/storage/shared" -iname "*$SEARCH*" 2>/dev/null || true)
 
 [[ -z "$MATCHES" ]] && { log_warn "No match found."; exit 0; }
 

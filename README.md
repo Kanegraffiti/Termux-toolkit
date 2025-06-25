@@ -36,3 +36,12 @@ Run `mini-man security` to view commands such as malware scans, backups and netw
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Pull requests are welcome!
+
+## Local testing
+Basic test scripts live in `scripts/test`. After installation you can run:
+```bash
+./scripts/test/test-network.sh
+./scripts/test/test-storage-access.sh
+```
+to verify network and storage permissions. Use `test-script.sh <tool>` to run a
+quick sanity check on any toolkit command.
