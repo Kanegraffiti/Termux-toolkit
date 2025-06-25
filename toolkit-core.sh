@@ -1,6 +1,12 @@
 #!/data/data/com.termux/files/usr/bin/bash
 # toolkit-core.sh – shared helpers for every Termux-Toolkit script
 set -euo pipefail
+resolve_toolkit_path() {
+  local script_path
+  script_path="$(readlink -f "$0" 2>/dev/null || realpath "$0")"
+  echo "$(dirname "$script_path")/../.."
+}
+
 
 CFG_FILE="$HOME/.termux-toolkit/config"
 [[ -f "$CFG_FILE" ]] && source "$CFG_FILE"

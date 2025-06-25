@@ -4,8 +4,14 @@
 # @desc Search $HOME + shared storage for a name and report size
 # @category system
 set -euo pipefail
-SCRIPT_DIR="$(realpath "$(dirname "$0")")"
-source "${SCRIPT_DIR}/toolkit-core.sh"
+resolve_toolkit_path() {
+  local script_path
+  script_path="$(readlink -f "$0" 2>/dev/null || realpath "$0")"
+  echo "$(dirname "$script_path")/../.."
+}
+
+TOOLKIT_ROOT="$(resolve_toolkit_path)"
+source "$TOOLKIT_ROOT/scripts/system/toolkit-core.sh"
 
 # ----- prerequisites -----
 require_tool du   || exit 1
