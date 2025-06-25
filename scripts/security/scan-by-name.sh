@@ -1,8 +1,14 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
-SCRIPT_DIR="$(realpath "$(dirname "$0")")"
-source "${SCRIPT_DIR}/../system/toolkit-core.sh"
-source "${SCRIPT_DIR}/../security/security-common.sh"
+resolve_toolkit_path() {
+  local script_path
+  script_path="$(readlink -f "$0" 2>/dev/null || realpath "$0")"
+  echo "$(dirname "$script_path")/../.."
+}
+
+TOOLKIT_ROOT="$(resolve_toolkit_path)"
+source "$TOOLKIT_ROOT/scripts/system/toolkit-core.sh"
+source "$TOOLKIT_ROOT/scripts/security/security-common.sh"
 
 usage() {
   echo "scan-by-name - search by name and scan"
