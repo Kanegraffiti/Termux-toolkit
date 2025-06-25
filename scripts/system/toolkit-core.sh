@@ -2,6 +2,19 @@
 # toolkit-core.sh – shared helpers for every Termux-Toolkit script
 set -euo pipefail
 
+# Resolve the real toolkit root even when sourced via symlink
+resolve_toolkit_root() {
+  local src file
+  src="${BASH_SOURCE[0]}"
+  while [ -h "$src" ]; do
+    file="$(readlink "$src")"
+    [[ $file != /* ]] && src="$(dirname "$src")/$file" || src="$file"
+  done
+  src="$(realpath "$src")"
+  echo "$(dirname "$src")/../.." | xargs realpath
+}
+export TOOLKIT_ROOT="$(resolve_toolkit_root)"
+
 # ---------- CONFIG ----------
 CFG_FILE="$HOME/.termux-toolkit/config"
 [[ -f "$CFG_FILE" ]] && source "$CFG_FILE"

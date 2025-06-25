@@ -73,3 +73,7 @@ for plugin in "$TARGET/plugins"/*.sh; do
 done
 
 echo "✅ Installation complete. Restart your shell or run 'source $SHELL_RC'"
+
+# Set TOOLKIT_ROOT for easy overrides
+grep -qxF 'export TOOLKIT_ROOT="$HOME/Termux-toolkit"' "$SHELL_RC" || \
+  echo 'export TOOLKIT_ROOT="$HOME/Termux-toolkit"' >> "$SHELL_RC"
