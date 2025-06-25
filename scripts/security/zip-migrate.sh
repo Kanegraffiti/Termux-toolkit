@@ -15,7 +15,7 @@ folder="${1:-}"
 
 require_tool zip zip
 
-check_storage_access
+check_storage
 
 dest="$HOME/backups"
 mkdir -p "$dest"

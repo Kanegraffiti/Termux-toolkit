@@ -4,6 +4,8 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../system/toolkit-core.sh"
 
+: "${DEFAULT_BACKUP_DIR:=$HOME/backups}"
+
 LOG_DIR="$HOME/.termux-toolkit/logs"
 mkdir -p "$LOG_DIR"
 

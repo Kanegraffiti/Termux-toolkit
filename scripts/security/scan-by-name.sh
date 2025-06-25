@@ -3,6 +3,7 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../system/toolkit-core.sh"
 source "$TOOLKIT_ROOT/scripts/security/security-common.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
   echo "scan-by-name - search by name and scan"
@@ -28,7 +29,7 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-check_storage_access
+check_storage
 
 search_paths=("$HOME" "$HOME/storage/shared" "${extra_paths[@]}")
 mapfile -t results < <(find "${search_paths[@]}" -name "$name" 2>/dev/null)
