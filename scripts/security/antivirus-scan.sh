@@ -13,7 +13,7 @@ fi
 require_tool clamscan clamav
 require_tool freshclam clamav
 
-check_storage_access
+check_storage
 
 LOG="$HOME/.termux-toolkit/logs/security-antivirus.log"
 

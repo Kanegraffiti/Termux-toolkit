@@ -16,7 +16,7 @@ dry_run=false
 require_tool tar tar
 require_tool gzip gzip
 
-check_storage_access
+check_storage
 
 read -rp "Source paths (space separated): " srcs
 read -rp "Destination directory [$DEFAULT_BACKUP_DIR]: " dest

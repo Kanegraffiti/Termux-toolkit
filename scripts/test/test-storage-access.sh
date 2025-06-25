@@ -3,5 +3,5 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../system/toolkit-core.sh"
 
-check_storage_access
+check_storage
 echo "✅ Storage access OK"
