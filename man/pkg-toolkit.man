@@ -3,8 +3,9 @@ pkg-toolkit - manage package batches
 Usage:
   pkg-toolkit --list
   pkg-toolkit --status
-  pkg-toolkit --install <batch>
-  pkg-toolkit --uninstall <batch>
+  pkg-toolkit --install [batch]
+  pkg-toolkit --uninstall [batch]
 
-Package batches are defined in pkg-batches.conf. Use --status to check installed packages.
+Package batches are defined in pkg-batches.conf. If no batch is provided,
+an interactive selector is shown. Use --status to check installed packages.
 

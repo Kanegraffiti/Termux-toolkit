@@ -9,5 +9,6 @@ case $cmd in
   man) mini-man "$@" ;;
   status) pkg-toolkit --status ;;
   scan) antivirus-scan "$@" ;;
-  help|*) echo "ttk <install|man|status|scan>" ;;
+  update) ttk-update ;;
+  help|*) echo "ttk <install|man|status|scan|update>" ;;
 esac
