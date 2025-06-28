@@ -1,0 +1,4 @@
+ping-check - ping hosts and report latency
+
+Usage:
+  ping-check [--offline] <host1> [host2 ...]

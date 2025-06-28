@@ -1,0 +1,4 @@
+dns-debug - resolve domains for troubleshooting
+
+Usage:
+  dns-debug [--offline] <domain1> [domain2 ...]

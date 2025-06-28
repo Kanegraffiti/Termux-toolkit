@@ -16,6 +16,7 @@ The project is currently in **v1.0-alpha**.
 - 🛠 **files**: `move-files`, `batch-rename`
 - 🔒 **security**: `backup-data`, `antivirus-scan`
 - 🧑‍💻 **dev**: `newproject`
+- 🌐 **network**: `ping-check`, `dns-debug`
 
 See the [blog post](https://example.com) for details.
 
