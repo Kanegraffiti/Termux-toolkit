@@ -1,0 +1,4 @@
+port-scan - scan host ports with nmap
+
+Usage:
+  port-scan [--offline] <host> [ports]

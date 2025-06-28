@@ -1,0 +1,4 @@
+net-reset - restart Wi-Fi interface
+
+Usage:
+  net-reset [--offline]
