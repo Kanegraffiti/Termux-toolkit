@@ -37,6 +37,10 @@ Run `mini-man security` to view commands such as malware scans, backups and netw
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Pull requests are welcome!
 
+## Script requirements
+Detailed conventions for writing new scripts can be found in
+[docs/REQUIREMENTS.md](docs/REQUIREMENTS.md).
+
 ## Local testing
 Basic test scripts live in `scripts/test`. After installation you can run:
 ```bash
