@@ -1,1 +1,0 @@
-Bugsy Lite translation helpers.

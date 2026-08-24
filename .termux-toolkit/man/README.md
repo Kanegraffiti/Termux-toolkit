@@ -1,1 +1,0 @@
-Toolkit manual pages

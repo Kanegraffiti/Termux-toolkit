@@ -25,17 +25,23 @@ _em() { [[ "$USE_EMOJIS" == true ]] && printf '%b ' "$1"; }
 COLOR_GREEN=$'\e[32m'; COLOR_RED=$'\e[31m'; COLOR_RESET=$'\e[0m'
 log_info()    { _em "ℹ️" ;  echo -e "${COLOR_GREEN}$*${COLOR_RESET}"; }
 log_warn()    { _em "⚠️" ;  echo -e "${COLOR_RED}$*${COLOR_RESET}"; }
+log_success() { _em "✅" ;  echo -e "${COLOR_GREEN}$*${COLOR_RESET}"; }
+log_error()   { _em "❌" ;  echo -e "${COLOR_RED}$*${COLOR_RESET}" >&2; }
 ask_confirm() { read -rp "$1 (y/N): " ans; [[ "$ans" == y ]]; }
 
 # ---------- TOOL CHECK ----------
 require_tool() {
-  command -v "$1" >/dev/null 2>&1 && return 0
-  log_warn "'$1' not found."
-  ask_confirm "Install package containing '$1' now?" || return 1
+  local command_name="$1" package_name="${2:-$1}"
+  command -v "$command_name" >/dev/null 2>&1 && return 0
+  log_warn "'$command_name' not found."
+  ask_confirm "Install package '$package_name' now?" || return 1
   if command -v pkg >/dev/null 2>&1; then
-    pkg install -y "$1" || log_warn "Failed to install $1"
+    pkg install -y "$package_name" || {
+      log_warn "Failed to install $package_name"
+      return 1
+    }
   else
-    log_warn "pkg unavailable – install $1 manually."
+    log_warn "pkg unavailable – install $package_name manually."
     return 1
   fi
 }
