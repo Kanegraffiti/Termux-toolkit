@@ -38,6 +38,33 @@ plugins and logs after confirmation.
 ## Usage
 Run `mini-man` to list all tools. Each command has `-h` or `--help`.
 
+The manual browser can be opened in any of these equivalent ways:
+
+```bash
+mini-man
+mini man
+ttk man
+```
+
+Use `ttk help` for examples, `ttk man <category> <tool>` to read a manual,
+or `ttk list` to print every installed command.
+
+### Integration with other assistants
+
+Other local programs such as Solace should integrate through the stable `ttk`
+interface rather than reading toolkit internals directly:
+
+```bash
+command -v ttk                 # detect the installation
+ttk root                       # locate the installed toolkit
+ttk version                    # read its version
+ttk list                       # discover available commands
+ttk has move-files             # test a capability using the exit status
+ttk run move-files --help      # safely invoke a toolkit command
+```
+
+This keeps integrations working if the toolkit's internal folders change.
+
 ### Security Module
 Run `mini-man security` to view commands such as malware scans, backups and network checks.
 

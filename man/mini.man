@@ -1,0 +1,12 @@
+mini - friendly manual shortcut
+
+USAGE
+  mini man [category] [tool]
+
+DESCRIPTION
+  Opens the same toolkit manuals as mini-man and ttk man.
+
+EXAMPLES
+  mini man
+  mini man files
+  mini man files move-files
