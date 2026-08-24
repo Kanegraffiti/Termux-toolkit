@@ -2,17 +2,33 @@
 set -euo pipefail
 
 # install-toolkit - install Termux CLI Toolkit
+SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET="$HOME/.termux-toolkit"
 BIN="$TARGET/bin"
 MAN="$TARGET/man"
+: "${PREFIX:?This installer must be run inside Termux (PREFIX is not set)}"
 PREFIX_BIN="$PREFIX/bin"
 
-mkdir -p "$BIN" "$MAN" "$TARGET/system"
+mkdir -p "$TARGET" "$TARGET/plugins" "$TARGET/logs" "$PREFIX_BIN"
 
-# install core library and default config
-cp scripts/system/toolkit-core.sh "$TARGET/system/"
-cp VERSION "$TARGET/" 2>/dev/null || true
-cp tools/pkg-batches.conf "$TARGET/" 2>/dev/null || true
+# Remove launchers created by an older toolkit installation.
+if [[ -d "$BIN" ]]; then
+  for old_launcher in "$BIN"/*; do
+    [[ -e $old_launcher ]] || continue
+    old_link="$PREFIX_BIN/$(basename "$old_launcher")"
+    [[ -L $old_link && $(readlink "$old_link") == "$old_launcher" ]] && rm -f "$old_link"
+  done
+fi
+
+# Replace only toolkit-managed runtime files. User config, plugins and logs stay.
+rm -rf "$BIN" "$TARGET/scripts" "$TARGET/man" "$TARGET/tools"
+mkdir -p "$BIN"
+cp -R "$SOURCE_DIR/scripts" "$TARGET/scripts"
+cp -R "$SOURCE_DIR/man" "$TARGET/man"
+cp -R "$SOURCE_DIR/tools" "$TARGET/tools"
+cp "$SOURCE_DIR/VERSION" "$TARGET/VERSION"
+printf '%s\n' "$SOURCE_DIR" > "$TARGET/source-dir"
+
 if [[ ! -f "$TARGET/config" ]]; then
   cat <<'EOF' > "$TARGET/config"
 USE_EMOJIS=true
@@ -20,60 +36,29 @@ AI_API_ENDPOINT="http://localhost:11434"
 DEFAULT_BACKUP_DIR="$HOME/backups"
 EOF
 fi
-mkdir -p "$TARGET/plugins"
 
-cp scripts/*/*.sh "$BIN" 2>/dev/null || true
-cp tools/*.sh "$BIN" 2>/dev/null || true
-cp scripts/system/mini-man "$BIN"
-for f in "$BIN"/*; do
-  ln -sf "$f" "$PREFIX_BIN/$(basename "$f")"
-done
+create_launcher() {
+  local name="$1"
+  local command_path="$2"
+  local launcher="$BIN/$name"
+  cat > "$launcher" <<EOF
+#!/data/data/com.termux/files/usr/bin/bash
+exec bash "$command_path" "\$@"
+EOF
+  chmod +x "$launcher"
+  ln -sf "$launcher" "$PREFIX_BIN/$name"
+}
 
-cp -r man/* "$MAN" 2>/dev/null || true
+while IFS= read -r script; do
+  name="$(basename "$script")"
+  name="${name%.sh}"
+  [[ $name == "toolkit-core" || $name == "security-common" ]] && continue
+  create_launcher "$name" "$script"
+done < <(find "$TARGET/scripts" -mindepth 2 -maxdepth 2 -type f \
+  \( -name '*.sh' -o -name 'mini-man' \) ! -path '*/test/*' | sort)
 
-chmod +x "$BIN"/*
+create_launcher "uninstall-toolkit" "$TARGET/uninstall-toolkit.sh"
+cp "$SOURCE_DIR/uninstall-toolkit.sh" "$TARGET/uninstall-toolkit.sh"
+chmod +x "$TARGET/uninstall-toolkit.sh"
 
-SHELL_RC="$HOME/.bashrc"
-[[ -f $HOME/.zshrc ]] && SHELL_RC="$HOME/.zshrc"
-
-# Backup
-if [[ -f $SHELL_RC ]]; then
-  cp "$SHELL_RC" "$SHELL_RC.bak.$(date +%s)"
-fi
-
-# PATH
-if ! grep -q "termux-toolkit/bin" "$SHELL_RC" 2>/dev/null; then
-  echo "export PATH=\"$BIN:\$PATH\"" >> "$SHELL_RC"
-fi
-
-# aliases
-for script in "$BIN"/*; do
-  name=$(basename "$script")
-  [[ $name == "toolkit-core.sh" ]] && continue
-  name=${name%.sh}
-  if ! grep -q "alias $name=" "$SHELL_RC" 2>/dev/null; then
-    echo "alias $name=\"$script\"" >> "$SHELL_RC"
-  fi
-done
-
-if ! grep -q "alias ttk=" "$SHELL_RC" 2>/dev/null; then
-  echo "alias ttk=\"$PREFIX_BIN/ttk.sh\"" >> "$SHELL_RC"
-  echo "alias ttk-man=\"ttk man\"" >> "$SHELL_RC"
-  echo "alias ttk-help=\"ttk help\"" >> "$SHELL_RC"
-fi
-
-# plugin aliases
-for plugin in "$TARGET/plugins"/*.sh; do
-  [[ -f $plugin ]] || continue
-  tool=$(grep -m1 '^# @tool' "$plugin" | awk '{print $3}')
-  [[ -n $tool ]] || continue
-  if ! grep -q "alias $tool=" "$SHELL_RC" 2>/dev/null; then
-    echo "alias $tool=\"$plugin\"" >> "$SHELL_RC"
-  fi
-done
-
-echo "✅ Installation complete. Restart your shell or run 'source $SHELL_RC'"
-
-# Set TOOLKIT_ROOT for easy overrides
-grep -qxF 'export TOOLKIT_ROOT="$HOME/Termux-toolkit"' "$SHELL_RC" || \
-  echo 'export TOOLKIT_ROOT="$HOME/Termux-toolkit"' >> "$SHELL_RC"
+echo "✅ Installation complete. Run 'ttk help' or 'mini-man' to begin."

@@ -23,7 +23,7 @@ Each file should start with the following block:
 ## General requirements
 
 - Write portable Bash for Android 10+.
-- Include a `require()` check for needed commands.
+- Include a `require_tool <command> [package]` check for needed commands.
 - Provide `--help` output when no arguments or `-h/--help` is passed.
 - Confirm destructive actions and create backups in `~/logs/toolkit.log`.
 - Support an `--offline` flag where network use is optional.
@@ -64,4 +64,3 @@ suggest local alternatives if possible. Passing `--offline` forces local mode.
 A future optional plugin, **Bugsy-Lite**, can wrap bashdb or pdb and allow users
 to run `bugsy <file>` to debug with a friendly UX. It will be offered as an
 extra install batch so the core toolkit stays lightweight.
-

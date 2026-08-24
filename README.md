@@ -18,16 +18,22 @@ The project is currently in **v1.0-alpha**.
 - 🧑‍💻 **dev**: `newproject`
 - 🌐 **network**: `ping-check`, `dns-debug`
 
-See the [blog post](https://example.com) for details.
-
 ## Installation
 ```bash
 pkg install git -y
-git clone <this repo>
+git clone https://github.com/Kanegraffiti/Termux-toolkit.git
 cd Termux-toolkit
 ./install-toolkit.sh
 ```
-Restart your shell or `source ~/.bashrc`.
+
+Termux already includes `$PREFIX/bin` in `PATH`, so the commands are available
+immediately. Run `ttk help` or `mini-man` to get started.
+
+Keep the cloned repository if you want `ttk update` to pull and reinstall future
+versions. If it is moved or deleted, clone the repository again before updating.
+
+To remove the toolkit, run `uninstall-toolkit`. This deletes toolkit config,
+plugins and logs after confirmation.
 
 ## Usage
 Run `mini-man` to list all tools. Each command has `-h` or `--help`.

@@ -1,0 +1,28 @@
+name: Shell checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Check Bash syntax
+        run: |
+          while IFS= read -r file; do
+            bash -n "$file"
+          done < <(find . -type f \( -name '*.sh' -o -path './scripts/system/mini-man' \) -not -path './.git/*')
+      - name: Run ShellCheck
+        run: |
+          mapfile -t files < <(find . -type f \( -name '*.sh' -o -path './scripts/system/mini-man' \) -not -path './.git/*')
+          shellcheck --severity=error -x -e SC1090,SC1091 "${files[@]}"
+      - name: Test installation
+        run: bash tests/install-smoke.sh
