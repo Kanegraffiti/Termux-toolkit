@@ -23,6 +23,8 @@ bash "$REPO_ROOT/install-toolkit.sh"
 [[ -x "$PREFIX/bin/mini-man" ]]
 [[ -x "$PREFIX/bin/mini" ]]
 [[ -x "$PREFIX/bin/pkg-toolkit" ]]
+[[ -x "$PREFIX/bin/site-open" ]]
+[[ ! -e "$PREFIX/bin/website-common" ]]
 [[ -f "$HOME/.termux-toolkit/scripts/security/security-common.sh" ]]
 [[ ! -e "$HOME/.bashrc" ]]
 

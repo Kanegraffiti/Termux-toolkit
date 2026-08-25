@@ -1,0 +1,7 @@
+site-status - show the website server started by site-open
+
+USAGE
+  site-status
+
+DESCRIPTION
+  Prints the server PID, project folder, local URL and log location.

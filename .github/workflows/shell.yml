@@ -26,3 +26,5 @@ jobs:
           shellcheck --severity=error -x -e SC1090,SC1091 "${files[@]}"
       - name: Test installation
         run: bash tests/install-smoke.sh
+      - name: Test website tools
+        run: bash tests/website-tools.sh
