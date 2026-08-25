@@ -1,0 +1,7 @@
+client-package - create a clean project delivery ZIP
+
+USAGE
+  client-package <project> [--output <zip>] [--dry-run] [--yes]
+
+Excludes Git history, dependencies, caches, build output, logs, environment
+files and editor metadata. Runs secret-check before packaging.

@@ -1,0 +1,7 @@
+termux-doctor - diagnose the Termux and toolkit installation
+
+USAGE
+  termux-doctor
+
+Checks PREFIX, PATH, shared storage, essential commands, update source, toolkit
+launcher links and available storage. It does not modify the installation.

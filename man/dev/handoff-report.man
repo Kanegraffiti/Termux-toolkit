@@ -1,0 +1,7 @@
+handoff-report - generate a Markdown project handoff guide
+
+USAGE
+  handoff-report <project> [--output <markdown-file>]
+
+Includes stack, package manager, safe repository details, setup/build commands,
+environment guidance and a client handoff checklist.
