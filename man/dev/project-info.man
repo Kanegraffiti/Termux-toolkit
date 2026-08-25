@@ -1,0 +1,13 @@
+project-info - inspect a local website project
+
+USAGE
+  project-info <folder-or-zip-or-name> [--root <directory>]
+
+DESCRIPTION
+  Resolves a path or searches storage, safely extracts ZIP archives, and reports
+  the detected technology stack, package manager, entry point and dependency
+  status. It does not execute the project.
+
+EXAMPLES
+  project-info ~/storage/shared/Download/portfolio.zip
+  project-info "client website"

@@ -1,0 +1,12 @@
+project-find - locate project folders and ZIP archives
+
+USAGE
+  project-find <name> [--root <directory>]
+
+DESCRIPTION
+  Searches Termux home and shared device storage by default. Results exclude
+  .git, node_modules and the toolkit's private runtime folder.
+
+EXAMPLES
+  project-find "client website"
+  project-find portfolio --root ~/storage/shared/Download

@@ -1,0 +1,20 @@
+site-open - find, analyse, serve and open a website project
+
+USAGE
+  site-open <folder-or-zip-or-name> [options]
+
+OPTIONS
+  --root <directory>  Limit name searching to one directory.
+  --port <number>     Select a local port; default is 4173.
+  --no-open           Do not open the Android browser.
+  --dry-run           Show detection and the launch command only.
+
+SAFETY
+  ZIP entries containing absolute paths or parent traversal are rejected.
+  JavaScript dependencies are only installed after confirmation. Use --dry-run
+  before opening an unfamiliar project.
+
+EXAMPLES
+  site-open "client website"
+  site-open ~/storage/shared/Download/site.zip --port 8080
+  site-open portfolio --dry-run

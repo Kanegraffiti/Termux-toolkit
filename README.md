@@ -17,6 +17,7 @@ The project is currently in **v1.0-alpha**.
 - 🔒 **security**: `backup-data`, `antivirus-scan`
 - 🧑‍💻 **dev**: `newproject`
 - 🌐 **network**: `ping-check`, `dns-debug`
+- 🌍 **website projects**: `project-find`, `project-info`, `site-open`, `site-status`, `site-stop`
 
 ## Installation
 ```bash
@@ -64,6 +65,26 @@ ttk run move-files --help      # safely invoke a toolkit command
 ```
 
 This keeps integrations working if the toolkit's internal folders change.
+
+### Open a website project from device storage
+
+`site-open` can find a project folder or ZIP by name, safely extract ZIP files,
+identify common web stacks, start the appropriate local development server and
+open it in the Android browser:
+
+```bash
+project-find "client website"
+project-info "client website"
+site-open "client website"
+site-status
+site-stop
+```
+
+Supported detection includes static HTML, PHP, Vite, Next.js, Create React App,
+Angular, Astro, Nuxt and generic Node.js projects. Unknown project code is not
+executed silently: missing JavaScript dependencies require confirmation before
+the package manager is run. Use `site-open <name> --dry-run` to inspect the
+detected project and launch command without starting anything.
 
 ### Security Module
 Run `mini-man security` to view commands such as malware scans, backups and network checks.

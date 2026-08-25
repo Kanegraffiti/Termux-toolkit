@@ -52,7 +52,7 @@ EOF
 while IFS= read -r script; do
   name="$(basename "$script")"
   name="${name%.sh}"
-  [[ $name == "toolkit-core" || $name == "security-common" ]] && continue
+  [[ $name == "toolkit-core" || $name == *-common ]] && continue
   create_launcher "$name" "$script"
 done < <(find "$TARGET/scripts" -mindepth 2 -maxdepth 2 -type f \
   \( -name '*.sh' -o -name 'mini-man' \) ! -path '*/test/*' | sort)

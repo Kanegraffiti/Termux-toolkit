@@ -1,0 +1,7 @@
+site-stop - stop the website server started by site-open
+
+USAGE
+  site-stop
+
+DESCRIPTION
+  Stops only the process recorded by the toolkit's website server state.
