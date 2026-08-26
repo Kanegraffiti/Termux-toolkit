@@ -18,6 +18,8 @@ The project is currently in **v1.0-alpha**.
 - 🧑‍💻 **dev**: `newproject`
 - 🌐 **network**: `ping-check`, `dns-debug`
 - 🌍 **website projects**: `project-find`, `project-info`, `site-open`, `site-status`, `site-stop`
+- 🧰 **project rescue**: `site-doctor`, `site-build-check`, `site-env-check`, `secret-check`
+- 📦 **client delivery**: `client-package`, `handoff-report`, `repo-status-all`
 
 ## Installation
 ```bash
@@ -85,6 +87,20 @@ Angular, Astro, Nuxt and generic Node.js projects. Unknown project code is not
 executed silently: missing JavaScript dependencies require confirmation before
 the package manager is run. Use `site-open <name> --dry-run` to inspect the
 detected project and launch command without starting anything.
+
+Before delivering a project, the rescue tools can audit its setup, compare
+environment-variable names without revealing values, scan for probable secrets,
+run its production build, create a clean delivery ZIP and generate a Markdown
+handoff document:
+
+```bash
+site-doctor ./client-site
+site-env-check ./client-site
+secret-check ./client-site
+site-build-check ./client-site --dry-run
+client-package ./client-site --dry-run
+handoff-report ./client-site
+```
 
 ### Security Module
 Run `mini-man security` to view commands such as malware scans, backups and network checks.

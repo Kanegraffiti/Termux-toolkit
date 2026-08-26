@@ -28,3 +28,5 @@ jobs:
         run: bash tests/install-smoke.sh
       - name: Test website tools
         run: bash tests/website-tools.sh
+      - name: Test project rescue tools
+        run: bash tests/project-rescue-tools.sh

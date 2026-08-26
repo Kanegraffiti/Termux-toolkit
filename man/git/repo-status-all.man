@@ -1,0 +1,7 @@
+repo-status-all - summarize Git repositories below a directory
+
+USAGE
+  repo-status-all [directory]
+
+Shows each repository's branch, clean/modified state and ahead/behind counts
+without fetching or changing any repository.

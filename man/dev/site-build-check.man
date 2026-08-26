@@ -1,0 +1,7 @@
+site-build-check - verify a website production build
+
+USAGE
+  site-build-check <project> [--dry-run] [--yes]
+
+The command previews the build first and confirms before installing dependencies
+or executing project code. Build output is saved in toolkit logs.

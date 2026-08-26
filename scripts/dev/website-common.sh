@@ -129,3 +129,8 @@ website_package_manager() {
   [[ -f "$dir/package.json" ]] && { echo npm; return; }
   echo none
 }
+
+website_has_script() {
+  local dir="$1" script="$2"
+  [[ -f "$dir/package.json" ]] && grep -Eq "\"$script\"[[:space:]]*:" "$dir/package.json"
+}

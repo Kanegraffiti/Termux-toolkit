@@ -1,0 +1,7 @@
+site-doctor - run non-destructive website project diagnostics
+
+USAGE
+  site-doctor <project-or-name>
+
+Checks stack detection, package manager, dependencies, scripts, lockfiles,
+environment setup, Git and README presence without executing project code.

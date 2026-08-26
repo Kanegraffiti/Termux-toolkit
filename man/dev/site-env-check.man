@@ -1,0 +1,6 @@
+site-env-check - compare environment-variable names without showing values
+
+USAGE
+  site-env-check <project> [--example <file>] [--env <file>]
+
+Returns a failure status when required keys are missing.
